@@ -174,4 +174,4 @@ I used this training data for training the model. The validation set helped dete
 
 Here is the Video of the model autonomously driving the car around track.
 
-[![Track 1](https://youtu.be/eI60rFv7xck/0.jpg)](https://youtu.be/eI60rFv7xck)
+[![Youtube Link](https://www.youtube.com/upload_thumbnail?v=eI60rFv7xck&t=1&ts=1494914452807)](https://youtu.be/eI60rFv7xck)
