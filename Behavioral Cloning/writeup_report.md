@@ -171,3 +171,7 @@ After the collection process, I had 37979 number of images. I then preprocessed 
 I used only the center images for validation , used sklearn train_test_split to randomly split the training data in to validation and training data.
 I also implemented early stopping to terminated if the validation loss didnt improve. 
 I used this training data for training the model. The validation set helped determine if the model was over or under fitting. The ideal number of epochs was around 8 . I used an adam optimizer so that manually training the learning rate wasn't necessary.
+
+Here is the Video of the model autonomously driving the car around track.
+
+[![Track 1](https://youtu.be/eI60rFv7xck/0.jpg)](https://youtu.be/eI60rFv7xck)
