@@ -67,12 +67,15 @@ public:
   ///* Sigma point spreading parameter
   double lambda_;
 
+  ///* Process Noise CoVaraince Matrix
+  
+  MatrixXd Q;
   
   ///* Noise Matrixes
   MatrixXd R_radar , R_laser;
   
   ///* NIS 
-  double NIS_R , NIS_L;
+  double NIS_R , NIS_L; 
   
   
 

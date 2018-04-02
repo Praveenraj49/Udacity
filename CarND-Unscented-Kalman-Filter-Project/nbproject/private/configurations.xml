@@ -356,16 +356,6 @@
               <in>UmfPackSupport.h</in>
             </df>
           </df>
-          <in>Cholesky</in>
-          <in>Core</in>
-          <in>Dense</in>
-          <in>Eigenvalues</in>
-          <in>Geometry</in>
-          <in>Householder</in>
-          <in>Jacobi</in>
-          <in>LU</in>
-          <in>QR</in>
-          <in>SVD</in>
         </df>
         <in>json.hpp</in>
         <in>main.cpp</in>
