@@ -91,8 +91,8 @@ int main() {
           double py = j[1]["y"];
           double psi = j[1]["psi"];
           double v = j[1]["speed"];
-          double delta = j[1]["steering_angle"];
-          double a  = j[1]["throttle"];
+          double steering = j[1]["steering_angle"];
+          double throttle  = j[1]["throttle"];
 
           /*
           * TODO: Calculate steering angle and throttle using MPC.
@@ -105,8 +105,8 @@ int main() {
             double shift_x = ptsx[i] - px;
             double shift_y = ptsy[i] - py;
 
-            ptsx[i] = (shift_x * cos(0-psi) - shift_y * sin(0-psi));
-            ptsy[i] = (shift_x * sin(0-psi) + shift_y * cos(0-psi));
+            ptsx[i] = (shift_x * cos(-psi) - shift_y * sin(-psi));
+            ptsy[i] = (shift_y * sin(-psi) + shift_y * cos(-psi));
 
           }
 
@@ -120,29 +120,28 @@ int main() {
 
           //Calculate the CTE and psi
 
-          double cte = polyeval(coeffs ,0);
+          double cte0 = polyeval(coeffs ,0);
 
-          double epsi = atan(coeffs[1]);
+          double epsi0 = -atan(coeffs[1]);
+
+          double delta = -steering;
+
+          double a = throttle;
 
           double Lf  = 2.67;
 
           // Assuming 100 milliseconds delay
-          const double  dt  = 100e-3;
+          const double  dt  = 0.1;
 
-          //Initial state
-          const double x0   = 0;
-          const double y0   = 0;
-          const double psi0 = 0;
-          const double cte0 = coeffs[0];
-          const double epsi0 = -atan(coeffs[1]);
+          double psi0 = 0.0;
 
           // State after delay
-          double x_next = x0 + v * cos(psi0) * dt;
-          double y_next = y0 + v * sin(psi0) * dt;
-          double psi_next = psi0 - (v * delta * dt /Lf);
-          double v_next  = v + a *dt;
-          double cte_next  = cte0 + v * sin(epsi0) * dt;
-          double epsi_next = epsi0 - (v * atan(coeffs[1]) * dt / Lf);
+          double x_next    =  v * cos(psi0) * dt;
+          double y_next    =  v * sin(psi0) * dt;
+          double psi_next  =  (v * delta * dt /Lf);
+          double v_next    =  v + a *dt;
+          double cte_next  =  cte0 + v * sin(epsi0) * dt;
+          double epsi_next =  epsi0 + (v * atan(coeffs[1]) * dt / Lf);
 
           Eigen::VectorXd state(6);
           //state << px , py , psi, v , cte, epsi;
@@ -150,7 +149,7 @@ int main() {
 
           auto vars = mpc.Solve(state, coeffs);
 
-          double steer_value = vars[0] / (deg2rad(25) * Lf);
+          double steer_value = -vars[0] / (deg2rad(25) * Lf);
           double throttle_value = vars[1];
 
           json msgJson;
