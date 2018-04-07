@@ -6,8 +6,9 @@
 using CppAD::AD;
 
 // TODO: Set the timestep length and duration
-const size_t N = 10;
-const double dt = 0.1;
+const size_t N = 20;
+const double dt = 0.05;
+const double Lf = 2.67;
 
 // This value assumes the model presented in the classroom is used.
 //
@@ -19,9 +20,11 @@ const double dt = 0.1;
 // presented in the classroom matched the previous radius.
 //
 // This is the length from front to CoG that has a similar radius.
-const double Lf = 2.67;
 
-const double  ref_v = 85;
+
+const double ref_v    = 100;
+const double ref_cte  = 0;
+const double ref_epsi = 0;
 
 
 size_t x_start =0;
@@ -41,28 +44,30 @@ class FG_eval {
 
   typedef CPPAD_TESTVECTOR(AD<double>) ADvector;
   void operator()(ADvector& fg, const ADvector& vars) {
-    // TODO: implement MPC
     // `fg` a vector of the cost constraints, `vars` is a vector of variable values (state & actuators)
     // NOTE: You'll probably go back and forth between this function and
     // the Solver function below.
     fg[0] =0;
 
     for(unsigned  int t =0; t<N ;t++){
-      fg[0] += 500 * CppAD::pow(vars[cte_start + t], 2);
-      fg[0] += 1000 * CppAD::pow(vars[epsi_start + t], 2);
-      fg[0] += 0.125 * CppAD::pow(vars[v_start + t] - ref_v, 2);
+      fg[0] += 2000 * CppAD::pow(vars[cte_start + t] - ref_cte, 2);
+      fg[0] += 2000 * CppAD::pow(vars[epsi_start + t] - ref_epsi, 2);
+      fg[0] += CppAD::pow(vars[v_start + t] - ref_v, 2);
     }
 
    //Minimize the use of actuators
 
     for (unsigned int t = 0; t < N - 1; t++) {
-      fg[0] += 1 * CppAD::pow(vars[delta_start + t], 2);
-      fg[0] += 1 * CppAD::pow(vars[a_start + t], 2);
+      fg[0] += 5 * CppAD::pow(vars[delta_start + t], 2);
+      fg[0] += 5 * CppAD::pow(vars[a_start + t], 2);
+
+      // Throttle and Steering cost  , this helps to car to slow down on turns.
+      fg[0] += 500 * CppAD::pow(vars[delta_start + t] * vars[v_start + t], 2);
     }
 
     for (unsigned int t = 0; t < N - 2; t++) {
-      fg[0] += 100 * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
-      fg[0] += 1 * CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
+      fg[0] += 200 * CppAD::pow(vars[delta_start + t + 1] - vars[delta_start + t], 2);
+      fg[0] += 10 * CppAD::pow(vars[a_start + t + 1] - vars[a_start + t], 2);
     }
 
     // Initial constraints
@@ -133,7 +138,6 @@ MPC::~MPC() {}
 
 vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   bool ok = true;
-  //size_t i;
   typedef CPPAD_TESTVECTOR(double) Dvector;
 
   double x = state[0];
@@ -143,7 +147,6 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   double cte = state[4];
   double epsi = state[5];
 
-  // TODO: Set the number of model variables (includes both states and inputs).
   // For example: If the state is a 4 element vector, the actuators is a 2
   // element vector and there are 10 timesteps. The number of variables is:
   //
@@ -180,10 +183,11 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   // degrees (values in radians).
   // NOTE: Feel free to change this to something else.
   for (int i = delta_start; i < a_start; i++) {
-    vars_lowerbound[i] = -0.436332;
-    vars_upperbound[i] = 0.436332;
+    vars_lowerbound[i] = -0.436332 * Lf;
+    vars_upperbound[i] = 0.436332 * Lf;
   }
-  std::cout << "Completed a start" << std::endl;
+
+
   // Acceleration/decceleration upper and lower limits.
   // NOTE: Feel free to change this to something else.
   for (int i = a_start; i < n_vars; i++) {
@@ -269,8 +273,4 @@ vector<double> MPC::Solve(Eigen::VectorXd state, Eigen::VectorXd coeffs) {
   }
 
  return result;
-  /*return {solution.x[x_start + 1] , solution.x[y_start + 1],
-          solution.x[psi_start + 1] , solution.x[v_start + 1],
-          solution.x[cte_start + 1] , solution.x[epsi_start + 1],
-          solution.x[delta_start] , solution.x[a_start] }; */
 }

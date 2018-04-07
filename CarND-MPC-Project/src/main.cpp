@@ -95,7 +95,6 @@ int main() {
           double throttle  = j[1]["throttle"];
 
           /*
-          * TODO: Calculate steering angle and throttle using MPC.
           *
           * Both are in between [-1, 1].
           *
@@ -106,7 +105,7 @@ int main() {
             double shift_y = ptsy[i] - py;
 
             ptsx[i] = (shift_x * cos(-psi) - shift_y * sin(-psi));
-            ptsy[i] = (shift_y * sin(-psi) + shift_y * cos(-psi));
+            ptsy[i] = (shift_x * sin(-psi) + shift_y * cos(-psi));
 
           }
 
@@ -131,25 +130,26 @@ int main() {
           double Lf  = 2.67;
 
           // Assuming 100 milliseconds delay
-          const double  dt  = 0.1;
+          const double  delay  = 0.1;
 
+          double x0 = 0.0;
+          double y0 = 0.0;
           double psi0 = 0.0;
 
           // State after delay
-          double x_next    =  v * cos(psi0) * dt;
-          double y_next    =  v * sin(psi0) * dt;
-          double psi_next  =  (v * delta * dt /Lf);
-          double v_next    =  v + a *dt;
-          double cte_next  =  cte0 + v * sin(epsi0) * dt;
-          double epsi_next =  epsi0 + (v * atan(coeffs[1]) * dt / Lf);
+          double x_next    = x0 + v * cos(psi0) * delay;
+          double y_next    = y0 +  v * sin(psi0) * delay;
+          double psi_next  =  (v * delta * delay /Lf);
+          double v_next    =  v + a * delay;
+          double cte_next  =  cte0 + v * sin(epsi0) * delay;
+          double epsi_next =  epsi0 + (v * atan(coeffs[1]) * delay / Lf);
 
           Eigen::VectorXd state(6);
-          //state << px , py , psi, v , cte, epsi;
           state << x_next , y_next , psi_next , v_next , cte_next, epsi_next;
 
           auto vars = mpc.Solve(state, coeffs);
 
-          double steer_value = -vars[0] / (deg2rad(25) * Lf);
+          double steer_value = -vars[0] / (deg2rad(25) * mpc.Lf);
           double throttle_value = vars[1];
 
           json msgJson;
@@ -184,7 +184,7 @@ int main() {
           //.. add (x,y) points to list here, points are in reference to the vehicle's coordinate system
           // the points in the simulator are connected by a Yellow line
           double poly_inc = 2.0;
-          int  points = 25;
+          int  points = 20;
           for(int i = 0;i < points;i++){
             next_x_vals.push_back(poly_inc * i);
             next_y_vals.push_back(polyeval(coeffs , poly_inc *i));
