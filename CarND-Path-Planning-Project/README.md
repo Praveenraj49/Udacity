@@ -1,5 +1,20 @@
 # CarND-Path-Planning-Project
 Self-Driving Car Engineer Nanodegree Program
+
+## Path Planning Project 
+
+### Introduction
+
+The goal of the project is to the drive car in the simulator with no collisions and never the execeeding the maximum speed , acceleration and jerk while completing a  distance 5 miles with little over 5 minutes.
+Since the speed limit is 50 miles/hr . Whenever possible the car should change lane smoothly  to advance forward.
+
+### Implementation
+1) Find the positions of other cars using the Sensor data
+2) Check whether need to change lane.
+3) Find the appropriate lane to shift if possible and safe
+
+
+
    
 ### Simulator.
 You can download the Term3 Simulator which contains the Path Planning Project from the [releases tab (https://github.com/udacity/self-driving-car-sim/releases/tag/T3_v1.2).
