@@ -27,6 +27,18 @@ Model train is implemenyed in code 102 to 133.
 Finally the model is trained with batch size of 1 for 10 epochs . I experimented with different batch size of 2 , 4 , 8 etc but every time the AWS instance will fail due to GPU running out of memeory. 
 For the final 10th epoch the average loss is  0.05 with stdev of 0.042.
 
+Predicted images are available in the  directory runs/1533892587.3156998.
+
+![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/uu_000085.png]
+
+![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/um_000025.png]
+
+![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/um_000008.png]
+
+![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/um_0000031.png]
+
+
+
 
 ##### Run
 Run the following command to run the project:
