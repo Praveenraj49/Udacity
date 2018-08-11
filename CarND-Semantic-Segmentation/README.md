@@ -29,13 +29,13 @@ For the final 10th epoch the average loss is  0.05 with stdev of 0.042.
 
 Predicted images are available in the  directory runs/1533892587.3156998.
 
-![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/uu_000085.png]
+![Sample Predictions1](runs/1533892587.3156998/uu_000085.png)
 
-![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/um_000025.png]
+![Sample Predictions2] (runs/1533892587.3156998/um_000025.png)
 
-![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/um_000008.png]
+![Sample Predictions3] (runs/1533892587.3156998/um_000008.png)
 
-![Sample Predictions] [https://github.com/Praveenraj49/Udacity/blob/master/CarND-Semantic-Segmentation/runs/1533892587.3156998/um_0000031.png]
+![Sample Predictions4] (runs/1533892587.3156998/um_0000031.png)
 
 
 
