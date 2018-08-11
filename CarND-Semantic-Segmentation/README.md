@@ -35,7 +35,7 @@ Predicted images are available in the  directory runs/1533892587.3156998.
 
 ![Sample Predictions3](runs/1533892587.3156998/um_000008.png)
 
-![Sample Predictions4](runs/1533892587.3156998/um_0000031.png)
+![Sample Predictions4](runs/1533892587.3156998/um_000031.png)
 
 
 
