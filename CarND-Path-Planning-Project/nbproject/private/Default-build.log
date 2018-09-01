@@ -1,0 +1,5 @@
+Scanning dependencies of target path_planning
+[ 50%] Building CXX object CMakeFiles/path_planning.dir/src/main.cpp.o
+[100%] Linking CXX executable path_planning
+ld: warning: directory not found for option '-L/usr/local/Cellar/libuv/1.11.0/lib'
+[100%] Built target path_planning

@@ -1,0 +1,27 @@
+Scanning dependencies of target pid
+[ 33%] Building CXX object CMakeFiles/pid.dir/src/PID.cpp.o
+/Users/sugi/Desktop/Praveen/SelfDrivingCar/SDC/Udacity/CarND-PID-Control-Project/src/PID.cpp:3:17: warning: using directive refers to implicitly-defined namespace 'std'
+using namespace std;
+                ^
+/Users/sugi/Desktop/Praveen/SelfDrivingCar/SDC/Udacity/CarND-PID-Control-Project/src/PID.cpp:20:1: warning: control reaches end of non-void function [-Wreturn-type]
+}
+^
+2 warnings generated.
+[ 66%] Building CXX object CMakeFiles/pid.dir/src/main.cpp.o
+/Users/sugi/Desktop/Praveen/SelfDrivingCar/SDC/Udacity/CarND-PID-Control-Project/src/main.cpp:51:18: warning: unused variable 'speed' [-Wunused-variable]
+          double speed = std::stod(j[1]["speed"].get<std::string>());
+                 ^
+/Users/sugi/Desktop/Praveen/SelfDrivingCar/SDC/Udacity/CarND-PID-Control-Project/src/main.cpp:52:18: warning: unused variable 'angle' [-Wunused-variable]
+          double angle = std::stod(j[1]["steering_angle"].get<std::string>());
+                 ^
+/Users/sugi/Desktop/Praveen/SelfDrivingCar/SDC/Udacity/CarND-PID-Control-Project/src/main.cpp:62:65: warning: variable 'steer_value' is uninitialized when used here [-Wuninitialized]
+          std::cout << "CTE: " << cte << " Steering Value: " << steer_value << std::endl;
+                                                                ^~~~~~~~~~~
+/Users/sugi/Desktop/Praveen/SelfDrivingCar/SDC/Udacity/CarND-PID-Control-Project/src/main.cpp:53:29: note: initialize the variable 'steer_value' to silence this warning
+          double steer_value;
+                            ^
+                             = 0.0
+3 warnings generated.
+[100%] Linking CXX executable pid
+ld: warning: directory not found for option '-L/usr/local/Cellar/libuv/1*/lib'
+[100%] Built target pid
