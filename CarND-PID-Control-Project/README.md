@@ -25,7 +25,7 @@ If the co-efficient is too low there will be constant oscillations in the steeri
  ### Finding hyperparameters
  I initially started by manually tuning each of the parameters. I tried using twiddle to find the hyper parameters they did not result in good performance.
  Many of runs using twiddle made the car drive out of the track. I used twiddle to find some initial parameters and tried to manually tune.
- Eventually I settled to manually tune the parameters by tuning a single parameter and keep the other constant and finally tuning all the parameters in conjunction. Once zero of the parameters and tried to increase the throttle/speed performed well up to speeds to 60 miles/hr beyond that starts crashing. I also used a PID controller to control the throttle.
+ Eventually I settled to manually tune the parameters by tuning a single parameter and keep the other constant and finally tuning all the parameters in conjunction. Once zeroed on the parameters and tried to increase the throttle/speed performed well up to speeds to 60 miles/hr beyond that starts crashing. I also used a PID controller to control the throttle.
 
 
  ## Dependencies
